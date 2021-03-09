@@ -1,5 +1,15 @@
 body {
-  margin: 0;
-  background: black;
-  color: white;
+    margin: 0;
+    background: black;
+    color: white;
+}
+
+.app {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
