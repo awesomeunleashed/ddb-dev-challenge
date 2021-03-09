@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# D&D Beyond Front-End Developer Challenge - TitanStar Legends
+
+See [the requirements repository](https://github.com/DnDBeyond/front-end-developer-challenge) for more info.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
