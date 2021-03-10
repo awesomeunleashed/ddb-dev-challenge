@@ -1,6 +1,7 @@
 export const PATH_1_NAME = 'Talent Path 1'
 export const PATH_2_NAME = 'Talent Path 2'
 export const PATH_TESTID_INFIX = '-to-'
+export const POINTS_SPENT_LABEL = 'Points Spent'
 export const SPRITE_CSS_VAR = '--sprite-index'
 export const START_POINTS = 6
 export const TALENT_BOAT = 'Boat'

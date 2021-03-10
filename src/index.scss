@@ -1,6 +1,7 @@
 $gray-light: gray;
 $gray: dimgray;
 $gray-dark: #2e2e2e;
+$selected-blue: #81a2ff;
 $sprite-size: 50px;
 $glow: 0 0 2px 1px rgba(white, 0.2);
 $rounding: 0.1rem;
@@ -48,7 +49,10 @@ button {
 
 .body {
     display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
+    flex-wrap: wrap;
 }
 
 .talent-paths {
@@ -113,7 +117,7 @@ button {
 
                 &.active {
                     @extend %light-icon;
-                    @include background-gradient(#81a2ff);
+                    @include background-gradient($selected-blue);
                     @include active-glow(1px);
 
                     + .flow {
@@ -140,5 +144,23 @@ button {
                 }
             }
         }
+    }
+}
+
+.points-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(black, 0.5);
+    box-shadow: $glow;
+    border-radius: $rounding;
+    font-size: 1.5rem;
+    padding: 1rem;
+    margin: 1rem 5rem;
+    text-align: center;
+
+    .label {
+        color: rgba($selected-blue, 0.8);
     }
 }
