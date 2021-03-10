@@ -85,9 +85,12 @@ button {
                     background-position: calc(var(--sprite-index) * -#{$sprite-size}) $y;
                 }
 
-                
                 @mixin background-gradient($color) {
                     background: linear-gradient($color 50%, $gray-dark 1%, $color);
+                }
+
+                @mixin active-glow($width) {
+                    box-shadow: 0 0 5px $width white;
                 }
                 
                 @at-root %light-icon {
@@ -111,7 +114,7 @@ button {
                 &.active {
                     @extend %light-icon;
                     @include background-gradient(#81a2ff);
-                    box-shadow: 0 0 5px 1px white;
+                    @include active-glow(1px);
 
                     + .flow {
                         background: $gray;
@@ -120,6 +123,11 @@ button {
 
                 &:not(:disabled):hover {
                     @extend %light-icon;
+                }
+
+                &:focus {
+                    outline: none;
+                    @include active-glow(2px);
                 }
 
                 div {

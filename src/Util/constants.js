@@ -39,3 +39,5 @@ export const SPRITE_TALENTS = [
   TALENT_LIGHTNING,
   TALENT_SKULL
 ]
+
+export const ALL_TALENTS = [...SPRITE_TALENTS].sort()

@@ -1,12 +1,15 @@
+import { TalentsContext } from 'Context/TalentsContext'
+import { useContext } from 'react'
 import { SPRITE_CSS_VAR, SPRITE_TALENTS } from 'Util/constants'
 
-const Talent = ({ name, active, activate }) => {
+const Talent = ({ name, disabled }) => {
+  const { isTalentActive, setTalentActive } = useContext(TalentsContext)
   let className = 'talent'
-  if (active) {
+  if (isTalentActive(name)) {
     className += ' active'
   }
   return (
-    <button className={className} disabled={!activate} title={name} onClick={activate}>
+    <button className={className} disabled={disabled} title={name} onClick={() => setTalentActive(name, true)}>
       <div data-testid={name} style={{ [SPRITE_CSS_VAR]: SPRITE_TALENTS.indexOf(name) }} />
     </button>
   )
