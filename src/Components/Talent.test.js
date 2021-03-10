@@ -1,42 +1,31 @@
 import { fireEvent, getByTestId, render } from '@testing-library/react'
 import Talent from './Talent'
-import talentIcons from 'Images/talent-icons-sprite.png'
-import { SPRITE_INACTIVE_SUFFIX, TALENT_SPRITESHEET_DATA } from 'Util/constants'
-
-jest.mock('react-spritesheet', () => ({
-  SpriteSheet: ({ data, ...props }) => <div data-testid='mock-spritesheet' data={JSON.stringify(data)} {...props} />
-}))
+import { SPRITE_CSS_VAR, SPRITE_TALENTS, TALENT_BOAT, TALENT_CAKE } from 'Util/constants'
 
 describe('Talent', () => {
-  const mockTalent = 'Mock Talent'
-
   it('should render correctly when inactive', () => {
-    const { getByTitle } = render(<Talent name={mockTalent} active={false} />)
-    const button = getByTitle(mockTalent)
+    const { getByTitle } = render(<Talent name={TALENT_BOAT} active={false} />)
+    const button = getByTitle(TALENT_BOAT)
     expect(button).not.toHaveClass('active')
-    const sprite = getByTestId(button, 'mock-spritesheet')
-    expect(sprite).toHaveAttribute('filename', talentIcons)
-    expect(sprite).toHaveAttribute('data', JSON.stringify(TALENT_SPRITESHEET_DATA))
-    expect(sprite).toHaveAttribute('sprite', mockTalent + SPRITE_INACTIVE_SUFFIX)
+    expect(getByTestId(button, TALENT_BOAT)).toHaveStyle(`${SPRITE_CSS_VAR}: ${SPRITE_TALENTS.indexOf(TALENT_BOAT)}`)
   })
 
   it('should render correctly when active', () => {
-    const mockTalent2 = 'Mock Talent 2'
-    const { getByTitle } = render(<Talent name={mockTalent2} active />)
-    const button = getByTitle(mockTalent2)
+    const { getByTitle } = render(<Talent name={TALENT_CAKE} active />)
+    const button = getByTitle(TALENT_CAKE)
     expect(button).toHaveClass('active')
-    expect(getByTestId(button, 'mock-spritesheet')).toHaveAttribute('sprite', mockTalent2)
+    expect(getByTestId(button, TALENT_CAKE)).toHaveStyle(`${SPRITE_CSS_VAR}: ${SPRITE_TALENTS.indexOf(TALENT_CAKE)}`)
   })
 
   it('should call activate prop when clicked', () => {
     const mockActivate = jest.fn()
-    const { getByTitle } = render(<Talent name={mockTalent} active={false} activate={mockActivate} />)
-    fireEvent.click(getByTitle(mockTalent))
+    const { getByTitle } = render(<Talent name={TALENT_BOAT} active={false} activate={mockActivate} />)
+    fireEvent.click(getByTitle(TALENT_BOAT))
     expect(mockActivate).toHaveBeenCalledTimes(1)
   })
 
   it('should be disabled if activate function is not provided', () => {
-    const { getByTitle } = render(<Talent name={mockTalent} active={false} activate={null} />)
-    expect(getByTitle(mockTalent)).toBeDisabled()
+    const { getByTitle } = render(<Talent name={TALENT_BOAT} active={false} activate={null} />)
+    expect(getByTitle(TALENT_BOAT)).toBeDisabled()
   })
 })
