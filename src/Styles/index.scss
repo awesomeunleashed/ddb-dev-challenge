@@ -1,0 +1,74 @@
+@import 'vars';
+
+body {
+    margin: 0;
+    background: #132020;
+    color: white;
+    font-family: sans-serif;
+}
+
+button {
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+#root {
+    display: flex;
+    justify-content: center;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0.5rem;
+    flex-grow: 1;
+    max-width: 80rem;
+    padding: 1rem;
+    overflow-y: auto;
+    box-shadow: $glow;
+    box-sizing: border-box;
+    border-radius: $rounding;
+}
+
+.header {
+    background: rgba($gray-dark, 0.7);
+    font-size: 1.8rem;
+    padding: 0.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    border-radius: $rounding;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.points-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(black, 0.5);
+    box-shadow: $glow;
+    border-radius: $rounding;
+    font-size: 1.5rem;
+    padding: 1rem;
+    margin: 1rem 5rem;
+    text-align: center;
+
+    .label {
+        color: rgba($selected-blue, 0.8);
+    }
+}

@@ -1,0 +1,95 @@
+@import 'vars';
+
+.talent-paths {
+    flex-grow: 1;
+
+    .path {
+        display: flex;
+        align-items: center;
+        margin: 1rem 0;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .path-name {
+            text-transform: uppercase;
+            text-align: center;
+            margin: 0.5rem 2rem;
+        }
+    }
+}
+
+@mixin sprite-background-position($y) {
+    background-position: calc(var(--sprite-index) * -#{$sprite-size}) $y;
+}
+
+%light-icon {
+    div {
+        @include sprite-background-position(0);
+    }
+}
+
+.talents {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+
+    .flow {
+        background: $gray-dark;
+        height: 1rem;
+        flex-grow: 1;
+        min-width: 1rem;
+        box-shadow: inset $glow;
+    }
+
+    .talent {
+        @mixin background-gradient($color) {
+            background: linear-gradient($color 50%, $gray-dark 1%, $color);
+        }
+
+        @mixin active-glow($width) {
+            box-shadow: 0 0 5px $width white;
+        }
+
+        @include background-gradient($gray);
+        padding: 0.25rem;
+        border-radius: $rounding;
+        box-shadow: inset $glow;
+        margin: 0.5rem 0;
+        position: relative;
+        cursor: pointer;
+
+        &:disabled {
+            cursor: not-allowed;
+        }
+
+        &.active {
+            @extend %light-icon;
+            @include background-gradient($selected-blue);
+            @include active-glow(1px);
+
+            + .flow {
+                background: $gray;
+            }
+        }
+
+        &:not(:disabled):hover {
+            @extend %light-icon;
+        }
+
+        &:focus {
+            outline: none;
+            @include active-glow(2px);
+        }
+
+        div {
+            border-radius: $rounding;
+            box-shadow: $glow;
+            background-image: url("../Images/talent-icons-sprite.png");
+            width: $sprite-size;
+            height: $sprite-size;
+            @include sprite-background-position($sprite-size);
+        }
+    }
+}

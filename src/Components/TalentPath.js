@@ -2,8 +2,7 @@ import { TalentsContext } from 'Context/TalentsContext'
 import { useContext } from 'react'
 import { PATH_TESTID_INFIX } from 'Util/constants'
 import Talent from './Talent'
-
-// TODO: remove talents. Can we do it with previous talents?
+import 'Styles/talents.scss'
 
 const TalentPath = ({ name, talents }) => {
   const { points, isTalentActive } = useContext(TalentsContext)
