@@ -17,9 +17,12 @@ const TalentPath = ({ name, talents }) => {
           if (i > 0) {
             const id = `${talents[i - 1]}${PATH_TESTID_INFIX}${talent}`
             elements.push(<div className='flow' key={id} data-testid={id} />)
-            if (canChange) {
-              canChange = isTalentActive(talents[i - 1])
+            if (canChange && !isTalentActive(talents[i - 1])) {
+              canChange = false
             }
+          }
+          if (canChange && i < talents.length - 1 && isTalentActive(talents[i + 1])) {
+            canChange = false
           }
           elements.push(<Talent key={i} name={talent} disabled={!canChange} />)
           return elements

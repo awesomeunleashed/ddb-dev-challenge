@@ -18,13 +18,13 @@ export const TalentsProvider = ({ children }) => {
       points,
       isTalentActive: name => talents[name],
       setTalentActive: (name, active) => {
-        if (talents[name] === active) {
+        if (talents[name] === undefined || talents[name] === active) {
           return
         }
         const newTalents = { ...talents }
         newTalents[name] = active
         setState({
-          points: points - 1,
+          points: active ? points - 1 : points + 1,
           talents: newTalents
         })
       }

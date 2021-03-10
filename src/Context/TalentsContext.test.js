@@ -28,7 +28,7 @@ describe('TalentsContext', () => {
     }
   })
 
-  it('should provide function to activate talents', () => {
+  it('should provide function to activate and deactivate talents', () => {
     render(
       <TalentsProvider>
         <MockConsumer />
@@ -37,6 +37,10 @@ describe('TalentsContext', () => {
     act(() => gotContext.setTalentActive(TALENT_BOAT, true))
     expect(gotContext.isTalentActive(TALENT_BOAT)).toBe(true)
     expect(gotContext.points).toBe(START_POINTS - 1)
+
+    act(() => gotContext.setTalentActive(TALENT_BOAT, false))
+    expect(gotContext.isTalentActive(TALENT_BOAT)).toBe(false)
+    expect(gotContext.points).toBe(START_POINTS)
   })
 
   it('should not change provided context when activating an already-active talent', () => {
@@ -48,6 +52,17 @@ describe('TalentsContext', () => {
     act(() => gotContext.setTalentActive(TALENT_BOAT, true))
     const oldGotContext = gotContext
     act(() => gotContext.setTalentActive(TALENT_BOAT, true))
+    expect(oldGotContext).toBe(gotContext)
+  })
+
+  it('should not change provided context when changing a talent that does not exist', () => {
+    render(
+      <TalentsProvider>
+        <MockConsumer />
+      </TalentsProvider>
+    )
+    const oldGotContext = gotContext
+    act(() => gotContext.setTalentActive('bob', true))
     expect(oldGotContext).toBe(gotContext)
   })
 })

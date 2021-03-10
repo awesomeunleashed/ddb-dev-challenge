@@ -9,7 +9,16 @@ const Talent = ({ name, disabled }) => {
     className += ' active'
   }
   return (
-    <button className={className} disabled={disabled} title={name} onClick={() => setTalentActive(name, true)}>
+    <button
+      className={className} disabled={disabled} title={name}
+      onClick={() => setTalentActive(name, true)}
+      onContextMenu={e => {
+        e.preventDefault()
+        if (!disabled) {
+          setTalentActive(name, false)
+        }
+      }}
+    >
       <div data-testid={name} style={{ [SPRITE_CSS_VAR]: SPRITE_TALENTS.indexOf(name) }} />
     </button>
   )

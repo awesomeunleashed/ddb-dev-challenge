@@ -4,12 +4,14 @@ import { SPRITE_CSS_VAR, SPRITE_TALENTS, TALENT_BOAT, TALENT_CAKE } from 'Util/c
 import { TalentsContext } from 'Context/TalentsContext'
 
 describe('Talent', () => {
+  const renderTalent = (name, disabled, isTalentActive, setTalentActive) => render(
+    <TalentsContext.Provider value={{ isTalentActive, setTalentActive }}>
+      <Talent name={name} disabled={disabled} />
+    </TalentsContext.Provider>
+  )
+
   it('should render correctly when inactive', () => {
-    const { getByTitle } = render(
-      <TalentsContext.Provider value={{ isTalentActive: name => name !== TALENT_BOAT }}>
-        <Talent name={TALENT_BOAT} disabled={false} />
-      </TalentsContext.Provider>
-    )
+    const { getByTitle } = renderTalent(TALENT_BOAT, false, name => name !== TALENT_BOAT)
     const button = getByTitle(TALENT_BOAT)
     expect(button).not.toHaveClass('active')
     expect(button).toBeEnabled()
@@ -17,11 +19,7 @@ describe('Talent', () => {
   })
 
   it('should render correctly when active', () => {
-    const { getByTitle } = render(
-      <TalentsContext.Provider value={{ isTalentActive: name => name === TALENT_CAKE }}>
-        <Talent name={TALENT_CAKE} disabled={false} />
-      </TalentsContext.Provider>
-    )
+    const { getByTitle } = renderTalent(TALENT_CAKE, false, name => name === TALENT_CAKE)
     const button = getByTitle(TALENT_CAKE)
     expect(button).toHaveClass('active')
     expect(button).toBeEnabled()
@@ -29,23 +27,30 @@ describe('Talent', () => {
   })
 
   it('should render correctly when disabled', () => {
-    const { getByTitle } = render(
-      <TalentsContext.Provider value={{ isTalentActive: () => true }}>
-        <Talent name={TALENT_BOAT} disabled />
-      </TalentsContext.Provider>
-    )
+    const { getByTitle } = renderTalent(TALENT_BOAT, true, () => true)
     expect(getByTitle(TALENT_BOAT)).toBeDisabled()
   })
 
   it('should activate talent when enabled and clicked', () => {
-    const mockActivate = jest.fn()
-    const { getByTitle } = render(
-      <TalentsContext.Provider value={{ isTalentActive: () => true, setTalentActive: mockActivate }}>
-        <Talent name={TALENT_BOAT} disabled={false} />
-      </TalentsContext.Provider>
-    )
+    const mockSetActive = jest.fn()
+    const { getByTitle } = renderTalent(TALENT_BOAT, false, () => false, mockSetActive)
     fireEvent.click(getByTitle(TALENT_BOAT))
-    expect(mockActivate).toHaveBeenCalledTimes(1)
-    expect(mockActivate).toHaveBeenCalledWith(TALENT_BOAT, true)
+    expect(mockSetActive).toHaveBeenCalledTimes(1)
+    expect(mockSetActive).toHaveBeenCalledWith(TALENT_BOAT, true)
+  })
+
+  it('should deactivate talent when enabled and right-clicked', () => {
+    const mockSetActive = jest.fn()
+    const { getByTitle } = renderTalent(TALENT_BOAT, false, () => true, mockSetActive)
+    fireEvent.contextMenu(getByTitle(TALENT_BOAT))
+    expect(mockSetActive).toHaveBeenCalledTimes(1)
+    expect(mockSetActive).toHaveBeenCalledWith(TALENT_BOAT, false)
+  })
+
+  it('should not deactivate talent when disabled and right-clicked', () => {
+    const mockSetActive = jest.fn()
+    const { getByTitle } = renderTalent(TALENT_BOAT, true, () => true, mockSetActive)
+    fireEvent.contextMenu(getByTitle(TALENT_BOAT))
+    expect(mockSetActive).not.toHaveBeenCalled()
   })
 })

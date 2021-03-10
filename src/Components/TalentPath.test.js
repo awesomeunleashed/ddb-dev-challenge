@@ -63,4 +63,12 @@ describe('TalentPath', () => {
     expect(renderedProps[mockTalents[1]].disabled).toBe(true)
     expect(renderedProps[mockTalents[2]].disabled).toBe(true)
   })
+
+  it('should disable talents in the path before the last active one', () => {
+    render(<PathWrapper startPoints={1} activeTalents={[mockTalents[0], mockTalents[1]]} />)
+
+    expect(renderedProps[mockTalents[0]].disabled).toBe(true)
+    expect(renderedProps[mockTalents[1]].disabled).toBe(false)
+    expect(renderedProps[mockTalents[2]].disabled).toBe(false)
+  })
 })
