@@ -51,10 +51,6 @@ button {
     width: 100%;
 }
 
-@mixin sprite-background-position($y) {
-    background-position: calc(var(--sprite-index) * -#{$sprite-size}) $y;
-}
-
 .talent-paths {
     flex-grow: 1;
 
@@ -70,12 +66,11 @@ button {
             margin: 0.5rem 2rem;
         }
 
-        .talents {
+        @at-root .talents {
             display: flex;
             align-items: center;
             flex-grow: 1;
             flex-wrap: wrap;
-            flex-direction: row-reverse;
 
             .flow {
                 background: $gray-dark;
@@ -86,25 +81,45 @@ button {
             }
 
             .talent {
-                background: linear-gradient($gray 50%, $gray-dark 1%, $gray);
+                @mixin sprite-background-position($y) {
+                    background-position: calc(var(--sprite-index) * -#{$sprite-size}) $y;
+                }
+
+                
+                @mixin background-gradient($color) {
+                    background: linear-gradient($color 50%, $gray-dark 1%, $color);
+                }
+                
+                @at-root %light-icon {
+                    div {
+                        @include sprite-background-position(0);
+                    }
+                }
+
+                @include background-gradient($gray);
                 padding: 0.25rem;
                 border-radius: $rounding;
                 box-shadow: inset $glow;
                 margin: 0.5rem 0;
+                position: relative;
                 cursor: pointer;
 
                 &:disabled {
                     cursor: not-allowed;
                 }
 
-                &:not(:disabled):hover {
-                    div {
-                        @include sprite-background-position(0);
-                    }
+                &.active {
+                    @extend %light-icon;
+                    @include background-gradient(#81a2ff);
+                    box-shadow: 0 0 5px 1px white;
 
-                    ~ .flow {
+                    + .flow {
                         background: $gray;
                     }
+                }
+
+                &:not(:disabled):hover {
+                    @extend %light-icon;
                 }
 
                 div {

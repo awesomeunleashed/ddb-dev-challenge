@@ -13,7 +13,7 @@ const TalentPath = ({ name, talents }) => {
           }
           elements.push(<Talent key={i} name={talent} active={false} />)
           return elements
-        }, []).reverse()}
+        }, [])}
       </div>
     </div>
   )
