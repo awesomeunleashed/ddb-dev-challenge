@@ -3,6 +3,7 @@ $gray: dimgray;
 $gray-dark: #2e2e2e;
 $sprite-size: 50px;
 $glow: 0 0 2px 1px rgba(white, 0.2);
+$rounding: 0.1rem;
 
 body {
     margin: 0;
@@ -31,7 +32,7 @@ button {
     overflow-y: auto;
     box-shadow: $glow;
     box-sizing: border-box;
-    border-radius: 0.1rem;
+    border-radius: $rounding;
 }
 
 .header {
@@ -40,7 +41,7 @@ button {
     padding: 1rem;
     text-align: center;
     margin-bottom: 1rem;
-    border-radius: 0.1rem;
+    border-radius: $rounding;
     width: 100%;
     box-sizing: border-box;
 }
@@ -51,7 +52,7 @@ button {
 }
 
 @mixin sprite-background-position($y) {
-    background-position:calc(var(--sprite-index) * -#{$sprite-size}) $y;
+    background-position: calc(var(--sprite-index) * -#{$sprite-size}) $y;
 }
 
 .talent-paths {
@@ -74,6 +75,7 @@ button {
             align-items: center;
             flex-grow: 1;
             flex-wrap: wrap;
+            flex-direction: row-reverse;
 
             .flow {
                 background: $gray-dark;
@@ -86,23 +88,32 @@ button {
             .talent {
                 background: linear-gradient($gray 50%, $gray-dark 1%, $gray);
                 padding: 0.25rem;
-                border-radius: 0.1rem;
+                border-radius: $rounding;
                 box-shadow: inset $glow;
                 margin: 0.5rem 0;
+                cursor: pointer;
+
+                &:disabled {
+                    cursor: not-allowed;
+                }
+
+                &:not(:disabled):hover {
+                    div {
+                        @include sprite-background-position(0);
+                    }
+
+                    ~ .flow {
+                        background: $gray;
+                    }
+                }
 
                 div {
-                    border-radius: 0.1rem;
+                    border-radius: $rounding;
                     box-shadow: $glow;
-                    background-image: url('./Images/talent-icons-sprite.png');
+                    background-image: url("./Images/talent-icons-sprite.png");
                     width: $sprite-size;
                     height: $sprite-size;
                     @include sprite-background-position($sprite-size);
-                }
-            }
-
-            .talent:not(:disabled) {
-                div:hover {
-                    @include sprite-background-position(0);
                 }
             }
         }
