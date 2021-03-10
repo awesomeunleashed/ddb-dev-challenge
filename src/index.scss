@@ -1,3 +1,8 @@
+$gray-light: gray;
+$gray: dimgray;
+$gray-dark: #2e2e2e;
+$glow: 0 0 2px 1px rgba(white, 0.2);
+
 body {
     margin: 0;
     background: rgb(19, 32, 32);
@@ -10,8 +15,6 @@ button {
     margin: 0;
     border: none;
 }
-
-$glow: 0 0 2px 1px rgba(255, 255, 255, 0.25);
 
 .app {
     height: calc(100vh - 1rem);
@@ -27,14 +30,15 @@ $glow: 0 0 2px 1px rgba(255, 255, 255, 0.25);
     overflow-y: auto;
     box-shadow: $glow;
     box-sizing: border-box;
+    border-radius: 0.1rem;
 }
 
 .header {
-    background: rgba(50, 50, 50, 0.7);
+    background: rgba($gray-dark, 0.7);
     font-size: 2rem;
     padding: 1rem;
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
     border-radius: 0.1rem;
     width: 100%;
     box-sizing: border-box;
@@ -51,11 +55,13 @@ $glow: 0 0 2px 1px rgba(255, 255, 255, 0.25);
     .path {
         display: flex;
         align-items: center;
-        margin-bottom: 1rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+        justify-content: center;
 
         .path-name {
             text-transform: uppercase;
-            margin-right: 2rem;
+            margin: 0.5rem 2rem;
         }
 
         .talents {
@@ -65,18 +71,19 @@ $glow: 0 0 2px 1px rgba(255, 255, 255, 0.25);
             flex-wrap: wrap;
 
             .flow {
-                background: gray;
+                background: $gray-dark;
                 height: 1rem;
                 flex-grow: 1;
                 min-width: 1rem;
+                box-shadow: inset $glow;
             }
 
             .talent {
-                background: linear-gradient(gray 50%, dimgray 1%, gray);
+                background: linear-gradient($gray 50%, $gray-dark 1%, $gray);
                 padding: 0.25rem;
                 border-radius: 0.1rem;
-                box-shadow: $glow;
-                margin: 1rem 0;
+                box-shadow: inset $glow;
+                margin: 0.5rem 0;
 
                 div {
                     border-radius: 0.1rem;
